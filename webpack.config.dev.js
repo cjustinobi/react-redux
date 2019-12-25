@@ -1,8 +1,8 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = "development";
 
 module.exports = {
   mode: "development",
@@ -19,14 +19,17 @@ module.exports = {
     overlay: true,
     historyApiFallback: true,
     disableHostCheck: true,
-    headers: {"Access-Control-Allow-Origin": "*"},
+    headers: { "Access-Control-Allow-Origin": "*" },
     https: false
   },
   plugins: [
-      new HtmlWebPackPlugin({
-        template: "src/index.html",
-        favicon: "src/favicon.ico"
-      })
+    new webpack.DefinePlugin({
+      "process.env.API_URL": JSON.stringify("http://localhost:3001")
+    }),
+    new HtmlWebpackPlugin({
+      template: "src/index.html",
+      favicon: "src/favicon.ico"
+    })
   ],
   module: {
     rules: [
@@ -41,5 +44,4 @@ module.exports = {
       }
     ]
   }
-
-}
+};
