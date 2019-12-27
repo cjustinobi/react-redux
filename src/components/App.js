@@ -23,6 +23,7 @@ function App() {
         <Route path="/course" component={ManageCoursePage} />
         <Route path="/authors" component={AuthorsPage} />
         <Route path="/author" component={ManageAuthorsPage} />
+        <Route path="/author/:id" component={ManageAuthorsPage} />
         <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const CourseList = ({ courses, onDeleteClick }) => (
+    // courses.length ?
   <table className="table">
     <thead>
       <tr>
@@ -43,6 +44,7 @@ const CourseList = ({ courses, onDeleteClick }) => (
       })}
     </tbody>
   </table>
+
 );
 
 CourseList.propTypes = {

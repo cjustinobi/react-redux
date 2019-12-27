@@ -18,6 +18,10 @@ export function deleteCourseOptimistic(course) {
   return { type: types.DELETE_COURSE_OPTIMISTIC, course };
 }
 
+export function filterCourse(searchString) {
+  return { type: types.SEARCH_STRING, searchString}
+}
+
 export function loadCourses() {
   return function(dispatch) {
     dispatch(beginApiCall());

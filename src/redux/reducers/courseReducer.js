@@ -13,6 +13,13 @@ export default function courseReducer(state = initialState.courses, action) {
       return action.courses;
     case types.DELETE_COURSE_OPTIMISTIC:
       return state.filter(course => course.id !== action.course.id);
+    case types.SEARCH_STRING:
+      return state.filter(course => {
+        const searchString = action.searchString.toLowerCase();
+        const courseTitle = course.title.toLowerCase();
+        const courseCategory = course.category.toLowerCase();
+        return courseTitle.includes(searchString) || courseCategory.includes(searchString)
+      });
     default:
       return state;
   }

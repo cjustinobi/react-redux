@@ -8,10 +8,12 @@ import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
+import CourseFilter from "./CourseFilter"
 
 class CoursesPage extends React.Component {
   state = {
-    redirectToAddCoursePage: false
+    redirectToAddCoursePage: false,
+      searchString: ''
   };
 
   componentDidMount() {
@@ -29,6 +31,16 @@ class CoursesPage extends React.Component {
       });
     }
   }
+
+  handleChange = e => {
+    const { value } = e.target;
+    this.setState({searchString: value})
+  };
+
+  handleSearch = e => {
+    e.preventDefault();
+    this.props.actions.filterCourse(this.state.searchString);
+  };
 
   handleDeleteCourse = async course => {
     toast.success("Course deleted");
@@ -48,18 +60,25 @@ class CoursesPage extends React.Component {
           <Spinner />
         ) : (
           <>
-            <button
-              style={{ marginBottom: 20 }}
-              className="btn btn-primary add-course"
-              onClick={() => this.setState({ redirectToAddCoursePage: true })}
-            >
-              Add Course
-            </button>
-
+            <div className="row">
+              <div className="col-sm-4">
+                <button
+                    style={{ marginBottom: 20 }}
+                    className="btn btn-primary add-course"
+                    onClick={() => this.setState({ redirectToAddCoursePage: true })}
+                >
+                  Add Course
+                </button>
+              </div>
+              <div className="col-sm-5 offset-3">
+                <CourseFilter onChange={this.handleChange} handleSearch={this.handleSearch} />
+              </div>
+            </div>
+            {this.props.courses.length ?
             <CourseList
               onDeleteClick={this.handleDeleteCourse}
               courses={this.props.courses}
-            />
+            /> : <h2>It is empty here</h2> }
           </>
         )}
       </>
@@ -95,7 +114,8 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
-      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch)
+      deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
+      filterCourse: bindActionCreators(courseActions.filterCourse, dispatch)
     }
   };
 }

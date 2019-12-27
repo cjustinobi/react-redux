@@ -22,7 +22,7 @@ const AuthorList = ({ authors, onDeleteClick }) => (
                 className="btn btn-outline-danger"
                 onClick={() => onDeleteClick(author)}
               >
-                Delete
+                Deletejj
               </button>
             </td>
           </tr>

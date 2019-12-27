@@ -90,7 +90,7 @@ ManageAuthorPage.propTypes = {
 };
 
 export function getAuthorById(authors, id) {
-  return authors.find(author => author.id === id) || null;
+  return authors.find(author => author.id == id) || null;
 }
 
 function mapStateToProps(state, ownProps) {
